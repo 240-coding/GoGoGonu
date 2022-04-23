@@ -34,7 +34,7 @@ struct Header: View {
                         .frame(width: 50)
                 }.padding(.trailing)
                     .hidden()
-            }.position(x: geometry.size.width / 2, y: geometry.size.height * 0.05)
+            }.position(x: geometry.size.width / 2, y: geometry.size.height * 0.075)
         }
         
     }
