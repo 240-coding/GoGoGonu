@@ -20,7 +20,7 @@ struct ContentView: View {
                                 .scaledToFit()
                                 .frame(height: 70)
                         }
-                        NavigationLink(destination: HowToPlayView()) {
+                        NavigationLink(destination: PlayMenuView()) {
                             Image("MainButton")
                                 .resizable()
                                 .scaledToFit()
