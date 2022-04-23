@@ -2,7 +2,14 @@ import SwiftUI
 
 struct WoomulGonu: View {
     var body: some View {
-        Text("Hello")
-//            .navigationBarHidden(true)
+        ZStack {
+            Color("BackgroundColor")
+                .ignoresSafeArea()
+            Header(title: "WoomulGonu")
+            ZStack {
+                WoomulShape()
+            }
+        }
+            .navigationBarHidden(true)
     }
 }

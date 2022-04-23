@@ -13,6 +13,9 @@ struct HobakGonu: View {
             Color("BackgroundColor")
                 .ignoresSafeArea()
             Header(title: "HobakGonu")
+            ZStack {
+                HobakShape()
+            }
         }
         .navigationBarHidden(true)
     }
