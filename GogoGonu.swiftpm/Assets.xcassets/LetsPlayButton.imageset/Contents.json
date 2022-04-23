@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "LetsPlayButton.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
