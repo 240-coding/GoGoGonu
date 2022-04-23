@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HobakGonu: View {
+struct HobakGonuView: View {
     var body: some View {
         ZStack {
             Color("BackgroundColor")

@@ -16,10 +16,10 @@ struct PlayMenuView: View {
                 .ignoresSafeArea()
             Header(title: "PlayMenuTitle")
             VStack {
-                NavigationLink(destination: HobakGonu()) {
+                NavigationLink(destination: HobakGonuView()) {
                     Image("HobakButton")
                 }.padding()
-                NavigationLink(destination: WoomulGonu()) {
+                NavigationLink(destination: WoomulGonuView()) {
                     Image("WoomulButton")
                 }
             }
