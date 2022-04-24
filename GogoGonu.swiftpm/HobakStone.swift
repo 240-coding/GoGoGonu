@@ -30,11 +30,11 @@ struct HobakStone: View {
                 if hobakData.isGameFinishied {
                     return
                 }
-//                if hobakData.isSinglePlayer {
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                        moveComputerStone()
-//                    }
-//                }
+                if hobakData.isSinglePlayer {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        moveComputerStone()
+                    }
+                }
             }
         }
     }
@@ -42,9 +42,11 @@ struct HobakStone: View {
     func moveStone() {
         swapStones()
         hobakData.isMoving = false
-        hobakData.currentTurn = hobakData.currentTurn == 0 ? 1 : 0
-        hobakData.movingCount += 1
         checkGameEnds()
+        if !hobakData.isGameFinishied {
+            hobakData.currentTurn = hobakData.currentTurn == 0 ? 1 : 0
+            hobakData.movingCount += 1
+        }
     }
     
     func swapStones() {
@@ -55,8 +57,9 @@ struct HobakStone: View {
     }
     
     func checkGameEnds() {
+        let currentTurn = hobakData.currentTurn == 0 ? 1 : 0
         if hobakData.movingCount <= 2 { return }
-        let myStonesInCirclePosition = (3...7).filter { hobakData.GonuPositionState[$0] == hobakData.currentTurn }
+        let myStonesInCirclePosition = (3...7).filter { hobakData.GonuPositionState[$0] == currentTurn }
         for pos in myStonesInCirclePosition {
             for movablePos in  hobakData.GonuMovablePosition[pos] {
                 if hobakData.GonuPositionState[movablePos] < 0 {
@@ -69,11 +72,24 @@ struct HobakStone: View {
     }
     
     func setEndMessage() {
-        let winner = hobakData.currentTurn == 1 ? "Red" : "Blue"
+        let winner = hobakData.currentTurn == 0 ? "Red" : "Blue"
         hobakData.message = "🎉🎊 \(winner) won! 🥳🎉"
     }
     
     func moveComputerStone() {
-        
+        let myStonesPosition = (0..<11).filter { hobakData.GonuPositionState[$0] == hobakData.currentTurn }
+        var movablePositionArray = [[Int]]()
+        for pos in myStonesPosition {
+            for movablePos in  hobakData.GonuMovablePosition[pos] {
+                if hobakData.GonuPositionState[movablePos] < 0 {
+                    movablePositionArray.append([pos, movablePos])
+                }
+            }
+        }
+        let selectedPos = movablePositionArray.randomElement()!
+        print(hobakData.GonuPositionState)
+        hobakData.changedPosition = selectedPos[0]
+        self.computerPosition = selectedPos[1]
+        moveStone()
     }
 }

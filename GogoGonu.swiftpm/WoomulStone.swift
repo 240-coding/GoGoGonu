@@ -45,9 +45,11 @@ struct WoomulStone: View {
     func moveStone() {
         swapStones()
         woomulData.isMoving = false
-        woomulData.currentTurn = woomulData.currentTurn == 0 ? 1 : 0
-        woomulData.movingCount += 1
         checkGameEnds()
+        if !woomulData.isGameFinishied {
+            woomulData.currentTurn = woomulData.currentTurn == 0 ? 1 : 0
+            woomulData.movingCount += 1
+        }
     }
     
     func checkIfFirstMove() -> Bool {
@@ -69,7 +71,9 @@ struct WoomulStone: View {
     }
     
     func checkGameEnds() {
-        let myStonesPosition = (0..<5).filter { woomulData.GonuPositionState[$0] == woomulData.currentTurn }
+        let currentTurn = woomulData.currentTurn == 0 ? 1 : 0
+        woomulData.movingCount += 1
+        let myStonesPosition = (0..<5).filter { woomulData.GonuPositionState[$0] == currentTurn }
         for pos in myStonesPosition {
             for movablePos in  woomulData.GonuMovablePosition[pos] {
                 if woomulData.GonuPositionState[movablePos] < 0 {
@@ -82,7 +86,7 @@ struct WoomulStone: View {
     }
     
     func setEndMessage() {
-        let winner = woomulData.currentTurn == 1 ? "Red" : "Blue"
+        let winner = woomulData.currentTurn == 0 ? "Red" : "Blue"
         woomulData.message = "🎉🎊 \(winner) won! 🥳🎉"
     }
     
@@ -97,7 +101,6 @@ struct WoomulStone: View {
             }
         }
         let selectedPos = movablePositionArray.randomElement()!
-        print(woomulData.GonuPositionState)
         woomulData.changedPosition = selectedPos[0]
         self.computerPosition = selectedPos[1]
         moveStone()

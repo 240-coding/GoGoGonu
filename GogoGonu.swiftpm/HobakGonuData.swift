@@ -7,7 +7,7 @@ class HobakGonuData: ObservableObject {
     let GonuMovablePosition = [[1], [0, 2, 3], [1], [4, 5, 6], [3, 5, 7], [3, 4, 6, 7], [3, 5, 7], [4, 5, 6], [9], [7, 8, 10], [9]]
     @Published var isMoving = false
     @Published var changedPosition = 0
-    @Published var isSinglePlayer = false
+    @Published var isSinglePlayer = true
     @Published var movingCount = 0
     @Published var currentTurn = 0
     @Published var message = ""
