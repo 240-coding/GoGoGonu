@@ -66,8 +66,6 @@ struct WoomulStone: View {
         let temp = woomulData.GonuPositionState[currentPosition]
         woomulData.GonuPositionState[currentPosition] = woomulData.GonuPositionState[woomulData.changedPosition]
         woomulData.GonuPositionState[woomulData.changedPosition] = temp
-        print(woomulData.GonuPositionState)
-
     }
     
     func checkGameEnds() {
@@ -79,11 +77,11 @@ struct WoomulStone: View {
                 }
             }
         }
+        woomulData.isGameFinishied = true
         setEndMessage()
     }
     
     func setEndMessage() {
-        woomulData.isGameFinishied = true
         let winner = woomulData.currentTurn == 1 ? "Red" : "Blue"
         woomulData.message = "🎉🎊 \(winner) won! 🥳🎉"
     }

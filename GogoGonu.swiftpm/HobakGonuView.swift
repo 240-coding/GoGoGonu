@@ -24,13 +24,35 @@ struct HobakGonuView: View {
                 
 //                width2 = radius
                 ZStack {
-                    let stonesOffset = [[-radius-lineSpace, -radius-lineSpace], [0, -radius-lineSpace], [radius+lineSpace, -radius-lineSpace], [0, 0], [0, -radius], [-radius, 0], [radius, 0], [0, radius], [-radius-lineSpace, radius+lineSpace], [0, radius+lineSpace], [radius+lineSpace, radius+lineSpace]]
+                    let stonesOffset = [[-radius-lineSpace, -radius-lineSpace], [0, -radius-lineSpace], [radius+lineSpace, -radius-lineSpace], [0, -radius], [-radius, 0], [0, 0], [radius, 0], [0, radius], [-radius-lineSpace, radius+lineSpace], [0, radius+lineSpace], [radius+lineSpace, radius+lineSpace]]
                     ForEach(0..<11) { index in
                         HobakStone(position: index, hobakData: self.hobakData)
                             .offset(x: stonesOffset[index][0], y: stonesOffset[index][1])
                     }
                 }
                     .position(x: width / 2, y: height / 2)
+                VStack {
+                    HStack(spacing: 30) {
+                        Toggle(hobakData.isSinglePlayer ? "Single Mode" : "Multi Mode", isOn: $hobakData.isSinglePlayer)
+                            .toggleStyle(.button)
+                            .tint(Color("RedColor"))
+                            .onChange(of: hobakData.isSinglePlayer) { value in
+                                hobakData.initGonu()
+                            }
+                        Text("Count: \(hobakData.movingCount)")
+                        HStack {
+                            Text("Current Turn:")
+                            Circle()
+                                .fill(hobakData.currentTurn == 0 ?  Color("RedColor") : Color("BlueColor"))
+                                .frame(width: 50)
+                        }
+                    }
+                    Text(hobakData.message)
+                        .fontWeight(hobakData.isGameFinishied ? .bold : .regular)
+                }
+                .font(.largeTitle)
+                .position(x: geometry.size.width / 2, y: geometry.size.height * 0.93)
+                .frame(height: 100)
             }
 //            HobakStone()
 //                .offset(x: 0, y: 100)
