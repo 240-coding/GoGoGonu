@@ -3,6 +3,7 @@ import SwiftUI
 struct WoomulStone: View {
     @State var position = 0
     @ObservedObject var woomulData: WoomulGonuData
+    @State var computerPosition = 0
 
     var body: some View {
         let isMoving = woomulData.isMoving
@@ -28,13 +29,25 @@ struct WoomulStone: View {
             if changedPosition == myPosition || woomulData.GonuPositionState[myPosition] > -1 || !woomulData.GonuMovablePosition[changedPosition].contains(myPosition) {
                 woomulData.isMoving = false
             } else {
-                swapStones()
-                woomulData.isMoving = false
-                woomulData.currentTurn = woomulData.currentTurn == 0 ? 1 : 0
-                woomulData.movingCount += 1
-                checkGameEnds()
+                moveStone()
+                if woomulData.isGameFinishied {
+                    return
+                }
+                if woomulData.isSinglePlayer {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        moveComputerStone()
+                            }
+                }
             }
         }
+    }
+    
+    func moveStone() {
+        swapStones()
+        woomulData.isMoving = false
+        woomulData.currentTurn = woomulData.currentTurn == 0 ? 1 : 0
+        woomulData.movingCount += 1
+        checkGameEnds()
     }
     
     func checkIfFirstMove() -> Bool {
@@ -49,9 +62,12 @@ struct WoomulStone: View {
     }
     
     func swapStones() {
-        let temp = woomulData.GonuPositionState[position]
-        woomulData.GonuPositionState[position] = woomulData.GonuPositionState[woomulData.changedPosition]
+        let currentPosition = woomulData.isSinglePlayer && woomulData.currentTurn == 1 ? self.computerPosition : self.position
+        let temp = woomulData.GonuPositionState[currentPosition]
+        woomulData.GonuPositionState[currentPosition] = woomulData.GonuPositionState[woomulData.changedPosition]
         woomulData.GonuPositionState[woomulData.changedPosition] = temp
+        print(woomulData.GonuPositionState)
+
     }
     
     func checkGameEnds() {
@@ -70,5 +86,22 @@ struct WoomulStone: View {
         woomulData.isGameFinishied = true
         let winner = woomulData.currentTurn == 1 ? "Red" : "Blue"
         woomulData.message = "🎉🎊 \(winner) won! 🥳🎉"
+    }
+    
+    func moveComputerStone() {
+        let myStonesPosition = (0..<5).filter { woomulData.GonuPositionState[$0] == woomulData.currentTurn }
+        var movablePositionArray = [[Int]]()
+        for pos in myStonesPosition {
+            for movablePos in  woomulData.GonuMovablePosition[pos] {
+                if woomulData.GonuPositionState[movablePos] < 0 {
+                    movablePositionArray.append([pos, movablePos])
+                }
+            }
+        }
+        let selectedPos = movablePositionArray.randomElement()!
+        print(woomulData.GonuPositionState)
+        woomulData.changedPosition = selectedPos[0]
+        self.computerPosition = selectedPos[1]
+        moveStone()
     }
 }

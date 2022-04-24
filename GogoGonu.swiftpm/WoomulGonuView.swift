@@ -21,6 +21,12 @@ struct WoomulGonuView: View {
             GeometryReader { geometry in
                 VStack {
                     HStack(spacing: 30) {
+                        Toggle(woomulData.isSinglePlayer ? "Single Mode" : "Multi Mode", isOn: $woomulData.isSinglePlayer)
+                            .toggleStyle(.button)
+                            .tint(Color("RedColor"))
+                            .onChange(of: woomulData.isSinglePlayer) { value in
+                                woomulData.initGonu()
+                            }
                         Text("Count: \(woomulData.movingCount)")
                         HStack {
                             Text("Current Turn:")
