@@ -5,22 +5,38 @@ struct WoomulGonuView: View {
     let GonuMovablePosition = ([1, 2, 3], [0, 2, 4], [0, 1, 3, 4], [0, 2, 4], [1, 2, 3])
     let StoneCoordinate: [[CGFloat]] = [[0, -300], [-300, 0], [0, 0], [300, 0], [0, 300]]
     @State var count = 0
-    @State var isMyTurn = true
+    @State var isRedTurn = true
     @State var isMoving = false
     @ObservedObject var woomulData = WoomulGonuData()
     
     var body: some View {
-        var btns = [AnyView]()
         ZStack {
             Color("BackgroundColor")
                 .ignoresSafeArea()
             Header(title: "WoomulGonu")
-                WoomulShape()
-                ForEach(0..<5) { index in
-                    WoomulStone(position: index, woomulData: woomulData).offset(x: StoneCoordinate[index][0], y: StoneCoordinate[index][1])
-//                WoomulStone(index: 1).offset(x: StoneCoordinate[1][0], y: StoneCoordinate[1][1])
+            WoomulShape()
+            ForEach(0..<5) { index in
+                WoomulStone(position: index, woomulData: woomulData).offset(x: StoneCoordinate[index][0], y: StoneCoordinate[index][1])
             }
-            Text(String(woomulData.test))
+            GeometryReader { geometry in
+                VStack {
+                    HStack(spacing: 30) {
+                        Text("Count: \(woomulData.movingCount)")
+                        HStack {
+                            Text("Current Turn:")
+                            Circle()
+                                .fill(woomulData.currentTurn == 0 ?  Color("RedColor") : Color("BlueColor"))
+                                .frame(width: 50)
+                        }
+                    }
+                    Text(woomulData.message)
+                        .fontWeight(woomulData.isGameFinishied ? .bold : .regular)
+                }
+                .font(.largeTitle)
+                .position(x: geometry.size.width / 2, y: geometry.size.height * 0.9)
+                .frame(height: 100)
+            }
+            
         }
         .navigationBarHidden(true)
     }

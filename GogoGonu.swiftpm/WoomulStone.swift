@@ -17,6 +17,9 @@ struct WoomulStone: View {
  
     func changeValue() {
         if !woomulData.isMoving {
+            if checkIfFirstMove() {
+                return
+            }
             woomulData.isMoving = true
             woomulData.changedPosition = self.position
         } else {
@@ -28,8 +31,20 @@ struct WoomulStone: View {
                 swapStones()
                 woomulData.isMoving = false
                 woomulData.currentTurn = woomulData.currentTurn == 0 ? 1 : 0
+                woomulData.movingCount += 1
                 checkGameEnds()
             }
+        }
+    }
+    
+    func checkIfFirstMove() -> Bool {
+        if woomulData.movingCount == 0 && position == 4 {
+            woomulData.isMoving = false
+            woomulData.message = "You can't move this stone at first!"
+            return true
+        } else {
+            woomulData.message = ""
+            return false
         }
     }
     
@@ -48,7 +63,12 @@ struct WoomulStone: View {
                 }
             }
         }
-        print("\(woomulData.currentTurn) Lose :(")
+        setEndMessage()
+    }
+    
+    func setEndMessage() {
         woomulData.isGameFinishied = true
+        let winner = woomulData.currentTurn == 1 ? "Red" : "Blue"
+        woomulData.message = "🎉🎊 \(winner) won! 🥳🎉"
     }
 }
