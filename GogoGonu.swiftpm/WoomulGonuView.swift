@@ -46,6 +46,7 @@ struct WoomulGonuView: View {
             
         }
         .navigationBarHidden(true)
+        .onAppear{ SoundSetting.instance.stopBackgroundMusic() }
     }
     
     func changeValue() {

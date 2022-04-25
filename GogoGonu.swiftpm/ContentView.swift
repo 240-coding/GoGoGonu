@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 struct ContentView: View {
     var body: some View {
         NavigationView {
@@ -30,7 +29,9 @@ struct ContentView: View {
                     }.frame(height: geometry.size.height * 0.7)
                 }
             }
-        }.navigationViewStyle(.stack)
+        }
+        .onAppear{ SoundSetting.instance.playSound(sound: .bgm)}
+        .navigationViewStyle(.stack)
             .navigationBarHidden(true)
     }
 }

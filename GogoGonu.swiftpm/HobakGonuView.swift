@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  GogoGonu
-//
-//  Created by 이서영 on 2022/04/23.
-//
-
 import SwiftUI
 
 struct HobakGonuView: View {
@@ -54,9 +47,8 @@ struct HobakGonuView: View {
                 .position(x: geometry.size.width / 2, y: geometry.size.height * 0.93)
                 .frame(height: 100)
             }
-//            HobakStone()
-//                .offset(x: 0, y: 100)
         }
+        .onAppear{ SoundSetting.instance.stopBackgroundMusic() }
         .navigationBarHidden(true)
     }
 }

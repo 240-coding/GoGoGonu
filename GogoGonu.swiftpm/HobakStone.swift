@@ -40,6 +40,7 @@ struct HobakStone: View {
     }
     
     func moveStone() {
+        SoundSetting.instance.playSound(sound: .bubble)
         swapStones()
         hobakData.isMoving = false
         checkGameEnds()
@@ -68,12 +69,13 @@ struct HobakStone: View {
             }
         }
         hobakData.isGameFinishied = true
+        SoundSetting.instance.playSound(sound: .applause)
         setEndMessage()
     }
     
     func setEndMessage() {
         let winner = hobakData.currentTurn == 0 ? "Red" : "Blue"
-        hobakData.message = "🎉🎊 \(winner) won! 🥳🎉"
+        hobakData.message = "🎉🎊 \(winner) Wins! 🥳🎉"
     }
     
     func moveComputerStone() {
@@ -87,7 +89,6 @@ struct HobakStone: View {
             }
         }
         let selectedPos = movablePositionArray.randomElement()!
-        print(hobakData.GonuPositionState)
         hobakData.changedPosition = selectedPos[0]
         self.computerPosition = selectedPos[1]
         moveStone()

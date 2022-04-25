@@ -43,6 +43,7 @@ struct WoomulStone: View {
     }
     
     func moveStone() {
+        SoundSetting.instance.playSound(sound: .bubble)
         swapStones()
         woomulData.isMoving = false
         checkGameEnds()
@@ -81,12 +82,13 @@ struct WoomulStone: View {
             }
         }
         woomulData.isGameFinishied = true
+        SoundSetting.instance.playSound(sound: .applause)
         setEndMessage()
     }
     
     func setEndMessage() {
         let winner = woomulData.currentTurn == 0 ? "Red" : "Blue"
-        woomulData.message = "🎉🎊 \(winner) won! 🥳🎉"
+        woomulData.message = "🎉🎊 \(winner) Wins! 🥳🎉"
     }
     
     func moveComputerStone() {
