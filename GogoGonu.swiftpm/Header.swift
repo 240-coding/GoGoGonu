@@ -22,7 +22,7 @@ struct Header: View {
                         .scaledToFit()
                         .frame(width: 50)
                         .foregroundColor(Color("BlackColor"))
-                }.padding(.leading, 30)
+                }.padding(.leading, 50)
                 Spacer()
                 Image(title)
                     .frame(alignment: .center)
@@ -32,7 +32,7 @@ struct Header: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50)
-                }.padding(.trailing)
+                }.padding(.trailing, 50)
                     .hidden()
             }.position(x: geometry.size.width / 2, y: geometry.size.height * 0.075)
         }

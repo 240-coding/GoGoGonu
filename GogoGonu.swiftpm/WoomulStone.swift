@@ -11,7 +11,7 @@ struct WoomulStone: View {
         Button(action: { changeValue() }) {
             Circle()
                 .fill(woomulData.GonuPositionState[position] == 0 ? Color("RedColor") : Color("BlueColor"))
-                .frame(width: isMoving && changedPosition == position ? 120 : 100, height: isMoving && changedPosition == position ? 120 : 100)
+                .frame(width: isMoving && changedPosition == position ? 100 : 85, height: isMoving && changedPosition == position ? 100 : 85)
                 .opacity(woomulData.GonuPositionState[position] < 0 ? 0 : 1)
         }.disabled(woomulData.isMoving || woomulData.GonuPositionState[position] == woomulData.currentTurn ? false : true)
     }
@@ -72,7 +72,6 @@ struct WoomulStone: View {
     
     func checkGameEnds() {
         let currentTurn = woomulData.currentTurn == 0 ? 1 : 0
-        woomulData.movingCount += 1
         let myStonesPosition = (0..<5).filter { woomulData.GonuPositionState[$0] == currentTurn }
         for pos in myStonesPosition {
             for movablePos in  woomulData.GonuMovablePosition[pos] {

@@ -7,6 +7,7 @@ struct ContentView: View {
             GeometryReader { geometry in
                 ZStack {
                     Color("BackgroundColor")
+                        .border(Color("RedColor"), width: 15)
                         .ignoresSafeArea()
                     VStack {
                         Image("Logo")
@@ -30,5 +31,6 @@ struct ContentView: View {
                 }
             }
         }.navigationViewStyle(.stack)
+            .navigationBarHidden(true)
     }
 }

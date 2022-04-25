@@ -13,6 +13,7 @@ struct HobakGonuView: View {
     var body: some View {
         ZStack {
             Color("BackgroundColor")
+                .border(Color("YellowColor"), width: 15)
                 .ignoresSafeArea()
             Header(title: "HobakGonu")
             HobakShape()
@@ -20,9 +21,8 @@ struct HobakGonuView: View {
                 let width = geometry.size.width
                 let height = geometry.size.height
                 let radius = width * 0.3
-                let lineSpace: CGFloat = 120
+                let lineSpace: CGFloat = 100
                 
-//                width2 = radius
                 ZStack {
                     let stonesOffset = [[-radius-lineSpace, -radius-lineSpace], [0, -radius-lineSpace], [radius+lineSpace, -radius-lineSpace], [0, -radius], [-radius, 0], [0, 0], [radius, 0], [0, radius], [-radius-lineSpace, radius+lineSpace], [0, radius+lineSpace], [radius+lineSpace, radius+lineSpace]]
                     ForEach(0..<11) { index in
@@ -50,7 +50,7 @@ struct HobakGonuView: View {
                     Text(hobakData.message)
                         .fontWeight(hobakData.isGameFinishied ? .bold : .regular)
                 }
-                .font(.largeTitle)
+                .font(.title)
                 .position(x: geometry.size.width / 2, y: geometry.size.height * 0.93)
                 .frame(height: 100)
             }

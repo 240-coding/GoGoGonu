@@ -12,6 +12,7 @@ struct WoomulGonuView: View {
     var body: some View {
         ZStack {
             Color("BackgroundColor")
+                .border(Color("YellowColor"), width: 15)
                 .ignoresSafeArea()
             Header(title: "WoomulGonu")
             WoomulShape()
@@ -38,7 +39,7 @@ struct WoomulGonuView: View {
                     Text(woomulData.message)
                         .fontWeight(woomulData.isGameFinishied ? .bold : .regular)
                 }
-                .font(.largeTitle)
+                .font(.title)
                 .position(x: geometry.size.width / 2, y: geometry.size.height * 0.9)
                 .frame(height: 100)
             }

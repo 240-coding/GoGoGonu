@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "HobakImage.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -11,7 +11,7 @@ struct HobakStone: View {
         Button(action: { changeValue() }) {
             Circle()
                 .fill(Color(hobakData.GonuPositionState[position] == 0 ? "RedColor" : "BlueColor"))
-                .frame(width: isMoving && changedPosition == position ? 120 : 100, height: isMoving && changedPosition == position ? 120 : 100)
+                .frame(width: isMoving && changedPosition == position ? 100 : 85, height: isMoving && changedPosition == position ? 100 : 85)
                 .opacity(hobakData.GonuPositionState[position] < 0 ? 0 : 1)
         }.disabled(hobakData.isMoving || hobakData.GonuPositionState[position] == hobakData.currentTurn ? false : true)
     }
